@@ -3,7 +3,6 @@ const { graphqlExpress } = require('graphql-server-express');
 
 module.exports = (app) => {
   const resolvers = app.api.people;
-  console.log(resolvers);
   const typeDefs = `
     type Person {
       id: ID!
