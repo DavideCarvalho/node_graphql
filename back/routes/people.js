@@ -31,11 +31,9 @@ module.exports = (app) => {
   `;
 
   const schema = makeExecutableSchema({typeDefs, resolvers})
-  app.use('/people', graphqlExpress(request => (
+  app.use('/people', graphqlExpress((req,res) => (
     {
       schema,
-      context: {
-        headers: request.headers
-      }
+      context: { req, res }
     })));
 }
