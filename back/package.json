@@ -12,6 +12,7 @@
     "graphql": "^0.11.7",
     "graphql-server-express": "^1.2.0",
     "graphql-tools": "^2.8.0",
+    "jsonwebtoken": "^8.1.0",
     "mongoose": "^4.13.5"
   }
 }

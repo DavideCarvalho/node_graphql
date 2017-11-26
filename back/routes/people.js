@@ -6,12 +6,16 @@ module.exports = (app) => {
   const typeDefs = `
     type Person {
       id: String
-      name: String!
+      name: String
+      login: String
+      password: String
     }
 
     input PersonInput {
       id: String
       name: String!
+      login: String!
+      password: String!
     }
 
     type Query {
@@ -26,6 +30,12 @@ module.exports = (app) => {
     }
   `;
 
-  schema = makeExecutableSchema({typeDefs, resolvers})
-  app.use('/people', graphqlExpress({schema}));
+  const schema = makeExecutableSchema({typeDefs, resolvers})
+  app.use('/people', graphqlExpress(request => (
+    {
+      schema,
+      context: {
+        headers: request.headers
+      }
+    })));
 }

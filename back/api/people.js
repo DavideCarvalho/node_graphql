@@ -1,16 +1,6 @@
 const mongoose = require('mongoose');
 const personModel = mongoose.model('Person');
 const api = {};
-const people = [
-  {
-    id: 1,
-    name: 'Gabriel Segers'
-  },
-  {
-    id: 2,
-    name: 'Davi de Carvalho'
-  },
-];
 
 const getPeople = async (obj, args, context, info) => {
   try {
@@ -29,11 +19,8 @@ const getPerson = async (obj, args, context, info) => {
 const addPerson = async (obj, args, context, info) => {
   try {
     const createdPerson = await personModel.create(args.person);
-    console.log(createdPerson);
     return createdPerson;
   } catch (e) {
-
-    console.log('deu pau');
     return e;
   }
 }
