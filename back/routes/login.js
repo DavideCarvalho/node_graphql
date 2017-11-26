@@ -26,11 +26,9 @@ module.exports = (app) => {
     }
   `;
   const schema = makeExecutableSchema({typeDefs, resolvers});
-  app.use('/login', graphqlExpress(request => ({
+  //app.use('/login', graphqlExpress({schema}));
+  app.use('/login', graphqlExpress((req,res) => ({
     schema,
-    context: {
-      headers: request.headers,
-      /*enviroment_variables: process.env*/
-    },
+    context: { req, res },
   })));
 }

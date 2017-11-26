@@ -7,14 +7,14 @@ module.exports = (app) => {
     type Person {
       id: String
       name: String
-      login: String
+      username: String
       password: String
     }
 
     input PersonInput {
       id: String
       name: String!
-      login: String!
+      username: String!
       password: String!
     }
 

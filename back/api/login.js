@@ -9,6 +9,7 @@ const doLogin = async (obj, args, context, info) => {
       login: args.login.username,
       password: args.login.password
     })
+    context.res.set('teste','123');
     return person;
   } catch (e) {
     return e;

@@ -5,7 +5,7 @@ const personSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  login: {
+  username: {
     type: String,
     required: true
   },
