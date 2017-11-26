@@ -7,6 +7,7 @@ module.exports = () => {
   app.use(bodyParser.json());
   
   consign()
+  .then('models')
   .include('api')
   .then('routes')
   .into(app);
