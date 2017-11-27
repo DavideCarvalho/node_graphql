@@ -14,6 +14,7 @@ module.exports = (app) => {
     name: String
     login: String
     password: String
+    isAdmin: Boolean
   }
   
   input LoginInput {

@@ -22,5 +22,5 @@ module.exports = (app) => {
     }
   }
 
-  //app.use(jwtVerification);
+  app.use(jwtVerification);
 }
