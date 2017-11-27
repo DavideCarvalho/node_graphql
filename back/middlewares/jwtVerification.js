@@ -14,7 +14,7 @@ module.exports = (app) => {
         const data = await jwt.verify(token, MY_SECRET);
         next();
       } catch (e) {
-        if (e.message === "jwt expired")
+        if (e.message === 'jwt expired')
           res.status(400).json(e)
       }
     } else {
@@ -22,5 +22,5 @@ module.exports = (app) => {
     }
   }
 
-  app.use(jwtVerification);
+  //app.use(jwtVerification);
 }

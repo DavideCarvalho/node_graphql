@@ -7,7 +7,7 @@ const api = {};
 const doLogin = async (obj, args, { req, res }, info) => {
   try {
     const person = await personModel.findOne({
-      login: args.login.username,
+      username: args.login.username,
       password: args.login.password
     })
     const token = jwt.sign(

@@ -9,6 +9,7 @@ module.exports = (app) => {
       name: String
       username: String
       password: String
+      isAdmin: Boolean
     }
 
     input PersonInput {
@@ -16,6 +17,7 @@ module.exports = (app) => {
       name: String!
       username: String!
       password: String!
+      isAdmin: Boolean!
     }
 
     type Query {
