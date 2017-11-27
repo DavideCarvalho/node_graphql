@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const personSchema = mongoose.Schema({
+  cid: {
+    type: String,
+    required: true
+  },
   name: {
     type: String,
     required: true
