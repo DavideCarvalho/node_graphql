@@ -16,7 +16,7 @@ const doLogin = async (obj, args, { req, res }, info) => {
       }, MY_SECRET, {
         expiresIn: '1d'
       });
-    res.set('Authentication', token);
+    res.set('authentication', token);
     return person;
   } catch (e) {
     return e;

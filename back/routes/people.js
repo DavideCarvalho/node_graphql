@@ -5,7 +5,7 @@ module.exports = (app) => {
   const resolvers = app.api.people;
   const typeDefs = `
     type Person {
-      id: String
+      cid: String
       name: String
       username: String
       password: String
@@ -13,7 +13,7 @@ module.exports = (app) => {
     }
 
     input PersonInput {
-      id: String
+      cid: String
       name: String!
       username: String!
       password: String!
@@ -22,12 +22,12 @@ module.exports = (app) => {
 
     type Query {
       people: [Person]
-      person(id: String!): Person
+      person(cid: String!): Person
     }
 
     type Mutation {
       addPerson(person: PersonInput!): Person
-      deletePerson(id: String!): Boolean
+      deletePerson(cid: String!): Boolean
       updatePerson(person: PersonInput!): Person
     }
   `;

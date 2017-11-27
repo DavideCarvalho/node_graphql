@@ -12,7 +12,7 @@ const getPeople = async (obj, args, context, info) => {
 }
 
 const getPerson = async (obj, args, context, info) => {
-  const person = await personModel.findOne( { _id:args.id } )
+  const person = await personModel.findOne( { cid:args.cid } )
   return person;
 }
 
