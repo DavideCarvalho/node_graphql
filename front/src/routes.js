@@ -29,8 +29,8 @@ const app = (
   <Router>
     <Provider store={store}>
       <Switch>
-        <Route path='/' exact component={(props) => <App {...props}/>}></Route>
-        <Route path='/login' component={(props) => <Login {...props}/>}></Route>
+        <Route path='/' exact component={(props) => <Login {...props} />}></Route>
+        <Route path='/login' component={(props) => <Login {...props} />}></Route>
         <PrivateRoute path='/protected' component={props => <Protected {...props} />} />
       </Switch>
     </Provider>
