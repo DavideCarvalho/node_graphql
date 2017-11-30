@@ -3,31 +3,21 @@ const { graphqlExpress } = require('graphql-server-express');
 
 module.exports = (app) => {
   const resolvers = app.api.people;
-  const typeDefs = `
-    type Person {
-      cid: String
-      name: String
-      password: String
-      isAdmin: Boolean
-    }
+  let typeDefs = '';
+  typeDefs += app.graphql.types.person;
+  typeDefs += app.graphql.inputs.person;
 
-    input PersonInput {
-      cid: String
-      name: String!
-      password: String!
-      isAdmin: Boolean!
-    }
+  typeDefs += `
+  type Query {
+    people: [Person]
+    person(cid: String!): Person
+  }
 
-    type Query {
-      people: [Person]
-      person(cid: String!): Person
-    }
-
-    type Mutation {
-      addPerson(person: PersonInput!): Person
-      deletePerson(cid: String!): Boolean
-      updatePerson(person: PersonInput!): Person
-    }
+  type Mutation {
+    addPerson(person: PersonInput!): Person
+    deletePerson(cid: String!): Boolean
+    updatePerson(person: PersonInput!): Person
+  }
   `;
 
   const schema = makeExecutableSchema({typeDefs, resolvers})

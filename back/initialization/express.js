@@ -11,6 +11,7 @@ module.exports = () => {
   consign()
   .include('middlewares')
   .then('models')
+  .then('graphql')
   .then('api')
   .then('routes')
   .into(app);

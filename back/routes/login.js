@@ -3,29 +3,14 @@ const { graphqlExpress } = require('graphql-server-express');
 
 module.exports = (app) => {
   const resolvers = app.api.login;
-  const typeDefs = `  
-  type Login {
-    username: String!
-    password: String!
-  }
-  
-  type Person {
-    cid: String
-    name: String
-    password: String
-    isAdmin: Boolean
-  }
 
-  input LoginInput {
-    cid: String!
-    password: String!
-  }
+  let typeDefs = '';
+  typeDefs += app.graphql.types.login;
+  typeDefs += app.graphql.types.person;
+  typeDefs += app.graphql.types.loginResponse;
+  typeDefs += app.graphql.inputs.login;
 
-  type LoginResponse {
-    person: Person
-    authentication: String
-  }
-  
+  typeDefs += `
   type Query {
     login(login: LoginInput): LoginResponse
   }
