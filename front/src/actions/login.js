@@ -12,8 +12,9 @@ export const loginFormInputChange = (text, field) => (dispatch) => {
   })
 }
 
+const DO_LOGIN = 'DO_LOGIN';
 export const doLogin = ({cid, password}) => async(dispatch) => {
-  const query = client('http://localhost:8000/login');
+  const query = client('http://localhost:8057/login');
   try {
     const data = await query(`
     query($login: LoginInput) {
@@ -26,15 +27,20 @@ export const doLogin = ({cid, password}) => async(dispatch) => {
         authentication
       }
     }
-  `, { 
-    login: {
-      cid,
-      password
-    } 
-  })
-  console.log(data);
+    `, { 
+      login: {
+        cid,
+        password
+      } 
+    })
+    dispatch({
+      type: DO_LOGIN,
+      payload: data
+    })
+    return Promise.resolve(data);
   } catch (e) {
     console.log(e)
+    return Promise.reject(e)
   }
 }
 

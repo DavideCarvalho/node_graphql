@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './high_order_components/login';
 import React from 'react';
 import { createStore, applyMiddleware } from 'redux';
@@ -6,23 +6,13 @@ import { Provider } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import promise from 'redux-promise'
 import thunk from 'redux-thunk'
-// import logger from 'redux-logger'
+import AdminDashboard from './high_order_components/admin/admin_dashboard';
+//import UserDashboard from './high_order_components/user/user_dashboard';
 import reducers from './reducers';
+import adminRestricted from './high_order_components/auth/admin_restricted';
 const store = createStore(reducers, composeWithDevTools(
-  // applyMiddleware(thunk, logger, promise)
   applyMiddleware(thunk, promise)
 ));
-
-const auth = true;
-
-const PrivateRoute = ({ component: Component, ...rest}) => (
-  <Route {...rest} render={props => (
-    auth ? (<Component {...props} />) : <Redirect to='/login'/>
-    )
-  }/>
-)
-
-const Protected = () => <h1>Essa página é protegida pelo Michel Temer comendo a sua mulher enquanto você trabalha</h1>
 
 const app = (
   <Router>
@@ -30,7 +20,7 @@ const app = (
       <Switch>
         <Route path='/' exact component={(props) => <Login {...props} />}></Route>
         <Route path='/login' component={(props) => <Login {...props} />}></Route>
-        <PrivateRoute path='/protected' component={props => <Protected {...props} />} />
+        <Route path='/admin/:cid' component={adminRestricted(AdminDashboard)}></Route>
       </Switch>
     </Provider>
 </Router>

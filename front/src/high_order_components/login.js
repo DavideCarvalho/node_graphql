@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-// import LoginActions from '../actions/login';
+import 'izitoast/dist/css/iziToast.min.css';
+import iziToast from 'izitoast';
 import { doLogin, loginFormInputChange } from '../actions/login';
 
 const titleStyle = {
@@ -8,6 +9,20 @@ const titleStyle = {
 }
 
 class Login extends Component {
+
+  async doLogin(person){
+    try {
+    const response = await this.props.doLogin(person);
+    response.login.person.isAdmin ? this.props.history.push(`/admin/${response.login.person.cid}`) : this.props.history.push(`/usuario/${response.login.person.cid}`);
+    } catch (e) {
+      iziToast.show({
+        title: 'Erro',
+        message: 'Tivemos um problema, por favor, tente novamente',
+        color: 'red'
+      });
+    }
+  }
+
   render () {
     return (
       <div>
@@ -26,7 +41,7 @@ class Login extends Component {
                       type="email" 
                       placeholder="Email"
                       value={this.props.login.loginForm.username}
-                      onInput={(e) => this.props.loginFormInputChange(e.target.value, 'cid')}
+                      onChange={(e) => this.props.loginFormInputChange(e.target.value, 'cid')}
                       />
                       <i className="fa fa-envelope"></i>
                     </p>
@@ -37,13 +52,13 @@ class Login extends Component {
                       type="password"
                       placeholder="Password"
                       value={this.props.login.loginForm.password}
-                      onInput={(e) => this.props.loginFormInputChange(e.target.value, 'password')}
+                      onChange={(e) => this.props.loginFormInputChange(e.target.value, 'password')}
                       />
                       <i className="fa fa-lock"></i>
                     </p>
                     <br />
                     <p className="control">
-                      <button className="button is-primary is-medium is-fullwidth" onClick={(e) => this.props.doLogin(this.props.login.loginForm)}>
+                      <button className="button is-primary is-medium is-fullwidth" onClick={(e) => this.doLogin(this.props.login.loginForm)}>
                         <i className="fa fa-user"></i>
                         Login
                       </button>
