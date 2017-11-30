@@ -10,24 +10,27 @@ module.exports = (app) => {
   }
   
   type Person {
-    id: String
+    cid: String
     name: String
-    login: String
     password: String
     isAdmin: Boolean
   }
-  
+
   input LoginInput {
-    username: String!
+    cid: String!
     password: String!
+  }
+
+  type LoginResponse {
+    person: Person
+    authentication: String
   }
   
   type Query {
-    login(login: LoginInput): Person
+    login(login: LoginInput): LoginResponse
   }
   `;
   const schema = makeExecutableSchema({typeDefs, resolvers});
-  //app.use('/login', graphqlExpress({schema}));
   app.use('/login', graphqlExpress((req,res) => ({
     schema,
     context: { req, res },

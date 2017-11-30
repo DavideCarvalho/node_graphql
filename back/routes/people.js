@@ -7,7 +7,6 @@ module.exports = (app) => {
     type Person {
       cid: String
       name: String
-      username: String
       password: String
       isAdmin: Boolean
     }
@@ -15,7 +14,6 @@ module.exports = (app) => {
     input PersonInput {
       cid: String
       name: String!
-      username: String!
       password: String!
       isAdmin: Boolean!
     }

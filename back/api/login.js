@@ -7,7 +7,7 @@ const api = {};
 const doLogin = async (obj, args, { req, res }, info) => {
   try {
     const person = await personModel.findOne({
-      username: args.login.username,
+      cid: args.login.cid,
       password: args.login.password
     })
     const token = jwt.sign(
@@ -17,7 +17,11 @@ const doLogin = async (obj, args, { req, res }, info) => {
         expiresIn: '1d'
       });
     res.set('authentication', token);
-    return person;
+    const loginResponse = {
+      person,
+      authentication: token
+    }
+    return loginResponse;
   } catch (e) {
     return e;
   }

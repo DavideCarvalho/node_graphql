@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import App from './App';
 import Login from './high_order_components/login';
 import React from 'react';
 import { createStore, applyMiddleware } from 'redux';
