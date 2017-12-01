@@ -10,6 +10,7 @@ const doLogin = async (obj, args, { req, res }, info) => {
       cid: args.login.cid,
       password: args.login.password
     })
+    !person ? throwErrorNotFound() : ''
     const token = jwt.sign(
       { 
         bearer: person
@@ -29,6 +30,18 @@ const doLogin = async (obj, args, { req, res }, info) => {
 
 api.Query = {
   login: doLogin
+}
+
+const throwErrorNotFound = () => {
+  throw new Error('UserNotFoundError')
+}
+
+const errorEnum = {
+  UserNotFoundError: {
+    statusCode: 404,
+    message : "Não foi possível encontrar um usuário com esse login e senha",
+    name : "UserNotFoundError"
+  }
 }
 
 module.exports = api;
