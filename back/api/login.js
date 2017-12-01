@@ -36,12 +36,4 @@ const throwErrorNotFound = () => {
   throw new Error('UserNotFoundError')
 }
 
-const errorEnum = {
-  UserNotFoundError: {
-    statusCode: 404,
-    message : "Não foi possível encontrar um usuário com esse login e senha",
-    name : "UserNotFoundError"
-  }
-}
-
 module.exports = api;
