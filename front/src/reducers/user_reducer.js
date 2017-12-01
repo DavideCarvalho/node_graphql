@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   person: {
     cid: '',
     name: '',
-    isAdmin: false
+    isAdmin: null
   }
 }
 

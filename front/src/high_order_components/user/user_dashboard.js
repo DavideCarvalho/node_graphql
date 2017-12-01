@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export default class UserDashboard extends Components{
+export default class UserDashboard extends Component{
   render(){
     return (
       <div>
