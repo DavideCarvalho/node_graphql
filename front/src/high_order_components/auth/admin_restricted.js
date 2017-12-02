@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
-import userState from '../../reducers/user_reducer';
+import { connect } from 'react-redux';
 
 export default (ComponentToBeShown) => {
   class AdminRestricted extends Component {
     render() {
       return (
-        !userState().person.isAdmin ?
+        !this.props.user.person.isAdmin ?
         <Redirect to='/login' /> :
-        <ComponentToBeShown {...this.props} />
+        <ComponentToBeShown match={this.props.match} history={this.props.history} location={this.props.location} />
       )
     }
   }
-  return withRouter(AdminRestricted);
+
+  const mapStateToProps = (state) => {
+    return {
+      user: state.user
+    }
+  }
+
+  const AdminRestrictedConnected = connect(mapStateToProps)(AdminRestricted);
+
+  return withRouter(AdminRestrictedConnected);
 }

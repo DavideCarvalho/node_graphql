@@ -39,7 +39,6 @@ export const doLogin = ({cid, password}) => async(dispatch) => {
     })
     return Promise.resolve(data);
   } catch (e) {
-    console.log(e)
     return Promise.reject(e)
   }
 }

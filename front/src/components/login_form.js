@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { doLogin, loginFormInputChange } from '../actions/login';
+import { withRouter } from "react-router-dom";
 import 'izitoast/dist/css/iziToast.min.css';
 import iziToast from 'izitoast';
 
@@ -9,11 +10,15 @@ const titleStyle = {
 }
 
 class LoginForm extends Component {
-  async doLogin(person){
+  async doLogin(person, e){
+    e.preventDefault();
     try {
     const response = await this.props.doLogin(person);
-    response.login.person.isAdmin ? this.props.history.push(`/admin/${response.login.person.cid}`) : this.props.history.push(`/usuario/${response.login.person.cid}`);
+    this.props.history.push(`/admin/${response.login.person.cid}`)
+    // response.login.person.isAdmin ? this.props.history.push(`/admin/${response.login.person.cid}`) : this.props.history.push(`/usuario/${response.login.person.cid}`);
+    //response.login.person.isAdmin ? <Redirect to={`/admin/${response.login.person.cid}`}/> : <Redirect to={`/usuario/${response.login.person.cid}`}/>
     } catch (e) {
+      console.log(e);
       iziToast.show({
         title: 'Erro',
         message: 'Tivemos um problema, por favor, tente novamente',
@@ -32,7 +37,7 @@ class LoginForm extends Component {
         <p className="control has-icon">
           <input 
           className="input" 
-          type="email" 
+          type="text" 
           placeholder="Email"
           value={this.props.login.loginForm.username}
           onChange={(e) => this.props.loginFormInputChange(e.target.value, 'cid')}
@@ -52,7 +57,7 @@ class LoginForm extends Component {
         </p>
         <br />
         <p className="control">
-          <button className="button is-primary is-medium is-fullwidth" onClick={(e) => this.doLogin(this.props.login.loginForm)}>
+          <button type="submit" className="button is-primary is-medium is-fullwidth" onClick={(e) => this.doLogin(this.props.login.loginForm, e)}>
             <i className="fa fa-user"></i>
             Login
           </button>
@@ -70,7 +75,9 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, {
+const LoginFormConnected = connect(mapStateToProps, {
   doLogin,
   loginFormInputChange
-})(LoginForm)
+})(LoginForm);
+
+export default withRouter(LoginFormConnected);

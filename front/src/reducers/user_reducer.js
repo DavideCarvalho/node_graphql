@@ -12,7 +12,6 @@ const INITIAL_STATE = {
 }
 
 const doLogin = (state = INITIAL_STATE, {type, payload}) => {
-  console.log(payload.login.person);
   return update(state, {
     authentication: {$set: payload.login.authentication},
     person: {$set: payload.login.person}
