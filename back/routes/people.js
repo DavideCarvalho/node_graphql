@@ -1,5 +1,5 @@
 const { makeExecutableSchema } = require('graphql-tools');
-const { graphqlExpress } = require('graphql-server-express');
+const { graphqlConnect } = require ('apollo-server-express');
 
 module.exports = (app) => {
   const resolvers = app.api.people;
@@ -21,9 +21,11 @@ module.exports = (app) => {
   `;
 
   const schema = makeExecutableSchema({typeDefs, resolvers})
-  app.use('/people', graphqlExpress((req,res) => (
+  app.use('/people', graphqlConnect((req,res) => (
     {
       schema,
-      context: { req, res }
+      context: { req, res },
+      tracing: true,
+      cacheControl: true
     })));
 }
