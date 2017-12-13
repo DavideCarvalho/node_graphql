@@ -20,6 +20,5 @@ export default (ComponentToBeShown) => {
   }
 
   const AdminRestrictedConnected = connect(mapStateToProps)(AdminRestricted);
-
   return withRouter(AdminRestrictedConnected);
 }

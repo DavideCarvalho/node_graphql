@@ -1,6 +1,6 @@
 //import axios from 'axios';
 import { createActions } from 'reduxsauce';
-import client from 'simple-graphql-client'
+import graphqlRequest from './graphql_request';
 
 
 export const LOGIN_FORM_INPUT_CHANGE = 'LOGIN_FORM_INPUT_CHANGE'
@@ -14,31 +14,34 @@ export const loginFormInputChange = (text, field) => (dispatch) => {
 
 const DO_LOGIN = 'DO_LOGIN';
 export const doLogin = ({cid, password}) => async(dispatch) => {
-  const query = client('http://localhost:8057/login');
-  try {
-    const data = await query(`
-    query($login: LoginInput) {
-      login(login: $login) {
-        person {
-          cid
-          name
-          isAdmin
-        }
-        authentication
+  const query = `
+  query($login: LoginInput) {
+    login(login: $login) {
+      person {
+        cid
+        name
+        isAdmin
       }
+      authentication
     }
-    `, { 
-      login: {
-        cid,
-        password
-      } 
-    })
+  }
+  `;
+  const variables = {
+    login: {
+      cid,
+      password
+    }
+  };
+  try {
+    const response = await graphqlRequest('http://localhost:8057/login', query, variables)
+    console.log(response);
     dispatch({
       type: DO_LOGIN,
-      payload: data
+      payload: response.data
     })
-    return Promise.resolve(data);
+    return Promise.resolve(response.data);
   } catch (e) {
+    console.log(e);
     return Promise.reject(e)
   }
 }

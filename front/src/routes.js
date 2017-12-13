@@ -8,6 +8,7 @@ import promise from 'redux-promise'
 import thunk from 'redux-thunk'
 import adminRestricted from './high_order_components/auth/admin_restricted';
 import userRestricted from './high_order_components/auth/user_restricted';
+import LoginSession from './high_order_components/auth/login_session';
 import AdminDashboard from './high_order_components/admin/admin_dashboard';
 import UserDashboard from './high_order_components/user/user_dashboard';
 import reducers from './reducers';
@@ -20,8 +21,8 @@ const app = (
   <Router>
     <Provider store={store}>
       <Switch>
-        <Route path='/' exact component={(props) => <Login {...props} />}></Route>
-        <Route path='/login' component={(props) => <Login {...props} />}></Route>
+        <Route path='/' exact component={LoginSession(Login)}></Route>
+        <Route path='/login' component={LoginSession(Login)}></Route>
         <Route path='/admin/:cid' component={adminRestricted(AdminDashboard)}></Route>
         <Route path='/usuario/:cid' component={userRestricted(UserDashboard)}></Route>
       </Switch>
