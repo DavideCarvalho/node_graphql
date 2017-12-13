@@ -17,10 +17,9 @@ const doLogin = async (obj, args, { req, res }, info) => {
       }, MY_SECRET, {
         expiresIn: '1d'
       });
-    res.set('authentication', token);
+    res.setHeader('authentication', token);
     const loginResponse = {
       person,
-      authentication: token
     }
     return loginResponse;
   } catch (e) {
