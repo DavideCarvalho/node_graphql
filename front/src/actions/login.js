@@ -17,12 +17,9 @@ export const doLogin = ({cid, password}) => async(dispatch) => {
   const query = `
   query($login: LoginInput) {
     login(login: $login) {
-      person {
-        cid
-        name
-        isAdmin
-      }
-      authentication
+      cid
+      name
+      isAdmin
     }
   }
   `;
@@ -34,12 +31,11 @@ export const doLogin = ({cid, password}) => async(dispatch) => {
   };
   try {
     const response = await graphqlRequest('http://localhost:8057/login', query, variables)
-    console.log(response);
     dispatch({
       type: DO_LOGIN,
-      payload: response.data
+      payload: response
     })
-    return Promise.resolve(response.data);
+    return Promise.resolve(response);
   } catch (e) {
     console.log(e);
     return Promise.reject(e)

@@ -7,12 +7,12 @@ module.exports = (app) => {
   let typeDefs = '';
   typeDefs += app.graphql.types.login;
   typeDefs += app.graphql.types.person;
-  typeDefs += app.graphql.types.loginResponse;
+  //typeDefs += app.graphql.types.loginResponse;
   typeDefs += app.graphql.inputs.login;
 
   typeDefs += `
   type Query {
-    login(login: LoginInput): LoginResponse
+    login(login: LoginInput): Person
   }
   `;
   const schema = makeExecutableSchema({typeDefs, resolvers});

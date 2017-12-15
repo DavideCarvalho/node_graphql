@@ -6,7 +6,7 @@ export default (ComponentToBeShown) => {
   class UserRestricted extends Component {
     render() {
       return (
-        this.props.person.isAdmin !== false ?
+        this.props.user.person.isAdmin !== false ?
         <Redirect to='/login' /> :
         <ComponentToBeShown match={this.props.match} history={this.props.history} location={this.props.location} />
       )

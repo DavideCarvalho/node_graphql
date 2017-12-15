@@ -11,17 +11,10 @@ const doLogin = async (obj, args, { req, res }, info) => {
       password: args.login.password
     })
     !person ? throwErrorNotFound() : ''
-    const token = jwt.sign(
-      { 
-        bearer: person
-      }, MY_SECRET, {
-        expiresIn: '1d'
-      });
+    const token = jwt.sign( { bearer: person }, MY_SECRET, { expiresIn: '1d' });
+    res.setHeader('Access-Control-Expose-Headers', 'authentication');
     res.setHeader('authentication', token);
-    const loginResponse = {
-      person,
-    }
-    return loginResponse;
+    return person;
   } catch (e) {
     return e;
   }

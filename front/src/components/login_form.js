@@ -14,8 +14,9 @@ class LoginForm extends Component {
     e.preventDefault();
     try {
     const response = await this.props.doLogin(person);
-    this.props.history.push(`/admin/${response.login.person.cid}`)
-    // response.login.person.isAdmin ? this.props.history.push(`/admin/${response.login.person.cid}`) : this.props.history.push(`/usuario/${response.login.person.cid}`);
+    //this.props.history.push(`/admin/${response.login.person.cid}`)
+    console.log(response.data)
+    response.data.login.isAdmin ? this.props.history.push(`/admin/${response.data.login.cid}`) : this.props.history.push(`/usuario/${response.data.login.cid}`);
     //response.login.person.isAdmin ? <Redirect to={`/admin/${response.login.person.cid}`}/> : <Redirect to={`/usuario/${response.login.person.cid}`}/>
     } catch (e) {
       console.log(e);

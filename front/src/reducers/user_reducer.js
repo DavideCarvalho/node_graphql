@@ -13,8 +13,8 @@ const INITIAL_STATE = {
 
 const doLogin = (state = INITIAL_STATE, {type, payload}) => {
   return update(state, {
-    authentication: {$set: payload.login.authentication},
-    person: {$set: payload.login.person}
+    authentication: {$set: payload.headers.authentication},
+    person: {$set: payload.data.login}
   });
 }
 

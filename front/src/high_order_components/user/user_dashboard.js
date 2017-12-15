@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default class UserDashboard extends Component{
+class UserDashboard extends Component{
+  ComponentWillMount() {
+    
+  }
+
   render(){
     return (
       <div>
@@ -9,3 +14,11 @@ export default class UserDashboard extends Component{
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps)(UserDashboard)
