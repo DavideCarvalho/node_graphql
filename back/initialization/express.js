@@ -19,7 +19,20 @@ module.exports = () => {
     dumpTraffic: true
   });
   engine.start();
+  const enginePeople = new Engine({ 
+    engineConfig: { 
+      apiKey: 'service:DavideCarvalho-Demolay:0oe2ZfdbsEoHV6mNXe8Zuw',
+      logging: {
+        level: 'DEBUG'
+      }
+    },
+    graphqlPort: 8057,
+    endpoint: '/people',
+    dumpTraffic: true
+  });
+  enginePeople.start();
   app.use(engine.expressMiddleware());
+  app.use(enginePeople.expressMiddleware());
   app.use(bodyParser.json());
   app.use(cors());
   app.use(compression());
