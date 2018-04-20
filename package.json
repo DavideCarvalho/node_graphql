@@ -4,6 +4,10 @@
   "main": "app.js",
   "author": "Davi de Carvalho",
   "license": "MIT",
+  "scripts": {
+    "start": "node app.js",
+    "start:hotreload": "node_modules/.bin/nodemon"
+  },
   "dependencies": {
     "apollo-engine": "^1.1.0",
     "apollo-engine-binary-darwin": "^0.2018.4-20-g7a8822c14",
@@ -23,5 +27,8 @@
     "graphql-tools": "^2.8.0",
     "jsonwebtoken": "^8.1.0",
     "mongoose": "^5.0.15"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3"
   }
 }
