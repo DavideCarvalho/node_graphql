@@ -3,7 +3,8 @@ const { Engine } = require ('apollo-engine');
 const bodyParser = require('body-parser');
 const consign = require('consign');
 const cors = require('cors');
-const compression = require('compression')
+const compression = require('compression');
+const mongoose = require("mongoose");
 
 module.exports = () => {
   const app = express();
@@ -44,6 +45,14 @@ module.exports = () => {
   .then('api')
   .then('routes')
   .into(app);
+
+  const personModel = mongoose.model("Person");
+  personModel.create({
+    cid: 1,
+    name: 'root',
+    password: 'root',
+    isAdmin: true
+  });
   
   return app;
 }
