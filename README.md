@@ -1,4 +1,4 @@
-# nodemon_graphql
+# node_graphql
 > Project to learn how GraphQL works
 
 I've made this project just to learn how GraphQL works with NodeJS and possible tools to work with it
