@@ -1,39 +1,30 @@
 const express = require('express');
-const { Engine } = require ('apollo-engine');
+const { ApolloEngine } = require ('apollo-engine');
 const bodyParser = require('body-parser');
 const consign = require('consign');
 const cors = require('cors');
 const compression = require('compression');
 const mongoose = require("mongoose");
+const app = express();
+
+const apolloEngineOptions = {
+  port: 8057,
+  graphqlPaths: ['/login', '/people'],
+  expressApp: app,
+  launcherOptions: {
+    startupTimeout: 3000,
+  },
+}
+
+const onApolloEngineStart = () => {
+  console.log('Listening!');
+}
 
 module.exports = () => {
-  const app = express();
-  const engine = new Engine({ 
-    engineConfig: { 
-      apiKey: 'service:DavideCarvalho-Demolay:0oe2ZfdbsEoHV6mNXe8Zuw',
-      logging: {
-        level: 'DEBUG'
-      }
-    },
-    graphqlPort: 8057,
-    endpoint: '/login',
-    dumpTraffic: true
-  });
-  engine.start();
-  const enginePeople = new Engine({ 
-    engineConfig: { 
-      apiKey: 'service:DavideCarvalho-Demolay:0oe2ZfdbsEoHV6mNXe8Zuw',
-      logging: {
-        level: 'DEBUG'
-      }
-    },
-    graphqlPort: 8057,
-    endpoint: '/people',
-    dumpTraffic: true
-  });
-  enginePeople.start();
-  app.use(engine.expressMiddleware());
-  app.use(enginePeople.expressMiddleware());
+  const engine = new ApolloEngine({
+    apiKey: 'service:DavideCarvalho-Demolay:0oe2ZfdbsEoHV6mNXe8Zuw'
+  })
+  engine.listen(apolloEngineOptions, onApolloEngineStart);
   app.use(bodyParser.json());
   app.use(cors());
   app.use(compression());
@@ -47,12 +38,13 @@ module.exports = () => {
   .into(app);
 
   const personModel = mongoose.model("Person");
-  personModel.create({
+  personModel.update(
+    { name : 'Ted' },{
     cid: 1,
     name: 'root',
     password: 'root',
     isAdmin: true
-  });
+  }, { upsert : true });
   
   return app;
 }
